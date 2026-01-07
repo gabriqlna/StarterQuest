@@ -15,16 +15,22 @@ class QuestManager {
     private Main $plugin;
     private array $quests = [];
     private Config $playersConfig;
-
+    
     public function __construct(Main $plugin) {
         $this->plugin = $plugin;
-        // Carrega as quests da config
+        
+        // 1. Carrega as quests
         $questData = new Config($plugin->getDataFolder() . "quests.yml", Config::YAML);
         $this->quests = $questData->get("quests", []);
         
-        // Base de dados simples (JSON) para progresso
-        // Para servidores grandes, recomenda-se SQLite, mas JSON serve para o escopo
-        $this->playersConfig = new Config($plugin->getDataFolder() . "data/players.json", Config::JSON);
+        // 2. CORREÇÃO: Cria a subpasta 'data' se ela não existir
+        $dataPath = $plugin->getDataFolder() . "data/";
+        if(!is_dir($dataPath)){
+            @mkdir($dataPath, 0777, true);
+        }
+        
+        // 3. Agora carrega o arquivo de players com segurança
+        $this->playersConfig = new Config($dataPath . "players.json", Config::JSON);
     }
 
     public function getPlayerQuestId(Player $player): int {
@@ -167,3 +173,4 @@ class QuestManager {
         return $q ? "§e" . $q['name'] : "§7Carregando...";
     }
 }
+
