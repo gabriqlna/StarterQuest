@@ -53,33 +53,33 @@ class QuestManager {
 
     // Verifica progresso e avança se necessário
     public function checkProgress(Player $player, string $type, string $targetItemName, int $amount = 1): void {
-        if ($this->isCompleted($player)) return;
+    if ($this->isCompleted($player)) return;
 
-        $quest = $this->getCurrentQuest($player);
-        if (!$quest) return;
+    $quest = $this->getCurrentQuest($player);
+    if ($quest === null) return;
 
-        // Verifica tipo e alvo
-        if ($quest['type'] !== $type) return;
-        
-        // Verifica se o item alvo bate (ex: 'log' está contido em 'oak_log')
-        if (!str_contains(strtolower($targetItemName), strtolower($quest['target']))) return;
+    // Verifica se o tipo da ação (break, place, etc) coincide
+    if ($quest['type'] !== $type) return;
+    
+    // Normalização para comparação (ignora maiúsculas e troca espaços por _)
+    $cleanTarget = strtolower(str_replace(" ", "_", (string)$quest['target']));
+    $cleanBlock = strtolower(str_replace(" ", "_", $targetItemName));
 
-        // Nota: Neste sistema simplificado, não estamos salvando contagem parcial (1/3 logs)
-        // O jogador precisa quebrar/craftar o total na sessão ou ação, ou simplificamos para ação única
-        // Para o tutorial ser fluido, vamos assumir que a ação conta como "progresso feito" 
-        // ou implementar um contador temporário na sessão. 
-        // ABRORDAGEM: Contador na Sessão do Plugin (Memória RAM)
-        
-        $currentProgress = $this->getSessionProgress($player) + $amount;
-        $this->setSessionProgress($player, $currentProgress);
+    // Verifica se o bloco interagido contém a palavra-chave configurada
+    if (!str_contains($cleanBlock, $cleanTarget)) return;
 
-        if ($currentProgress >= $quest['amount']) {
-            $this->completeQuest($player, $quest);
-        } else {
-            // Envia popup de progresso
-            $player->sendTip("§eProgresso: §f{$currentProgress}/{$quest['amount']}");
-        }
+    $newProgress = $this->getSessionProgress($player) + $amount;
+    $this->setSessionProgress($player, $newProgress);
+
+    // Se atingiu ou passou o objetivo, completa a missão
+    if ($newProgress >= (int)$quest['amount']) {
+        $this->completeQuest($player, $quest);
+    } else {
+        // Exibe o progresso de forma limpa (ex: 2/5)
+        $player->sendTip("§eProgresso: §f" . $newProgress . " / " . $quest['amount']);
     }
+}
+
 
     private array $sessionProgress = [];
 
@@ -173,4 +173,5 @@ class QuestManager {
         return $q ? "§e" . $q['name'] : "§7Carregando...";
     }
 }
+
 
