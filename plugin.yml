@@ -1,0 +1,16 @@
+name: StarterQuest
+version: 1.0.0
+main: StarterQuest\Main
+api: 5.0.0
+author: gabriqlna
+permissions:
+  starterquest.use:
+    default: true
+    description: "Permite usar o comando /starter"
+  starterquest.admin:
+    default: op
+    description: "Permite recarregar e gerenciar quests"
+commands:
+  starter:
+    description: "Abre o menu de missões iniciais"
+    permission: starterquest.use

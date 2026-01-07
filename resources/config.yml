@@ -1,0 +1,21 @@
+# Configurações Gerais
+settings:
+  # Prefixo das mensagens
+  prefix: "§l§b[StarterQuest] §r"
+  
+  # Som ao completar missão (ex: random.levelup)
+  complete-sound: "random.levelup"
+  
+  # Proteção para iniciantes (enquanto não terminar todas as quests)
+  protection:
+    enabled: true
+    no-pvp: true # Não pode bater nem apanhar de players
+    reduced-damage: true # Reduz dano de mobs/queda
+
+# Mensagens
+messages:
+  completed: "§aParabéns! Você completou: §e{QUEST}"
+  all-finished: "§6Você completou o tutorial inicial! Agora o mundo é seu."
+  locked: "§cComplete a missão anterior primeiro!"
+  protection-active: "§cVocê está protegido durante o tutorial."
+  protection-hit: "§cVocê não pode atacar jogadores durante o tutorial."

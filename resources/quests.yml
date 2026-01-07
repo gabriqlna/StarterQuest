@@ -1,0 +1,47 @@
+# Lista de Quests Sequenciais
+# Tipos disponíveis: break, craft, place, sleep
+quests:
+  1:
+    name: "Lenhador Iniciante"
+    description: "Quebre 3 troncos de madeira para começar sua jornada."
+    type: "break"
+    target: "oak_log" # String ID do item/bloco (pode ser parte do nome)
+    amount: 3
+    icon: "textures/blocks/log_oak"
+    rewards:
+      - "item:apple:2"
+      - "xp:50"
+
+  2:
+    name: "Engenharia Básica"
+    description: "Crie uma Crafting Table (Bancada de Trabalho)."
+    type: "craft"
+    target: "crafting_table"
+    amount: 1
+    icon: "textures/blocks/crafting_table_side"
+    rewards:
+      - "item:bread:2"
+      - "xp:20"
+
+  3:
+    name: "Ferramentas de Pedra"
+    description: "Crie uma Picareta de Pedra."
+    type: "craft"
+    target: "stone_pickaxe"
+    amount: 1
+    icon: "textures/items/stone_pickaxe"
+    rewards:
+      - "item:torch:8"
+
+  4:
+    name: "Doce Lar"
+    description: "Coloque 5 tábuas de madeira no chão para começar sua casa."
+    type: "place"
+    target: "planks"
+    amount: 5
+    icon: "textures/blocks/planks_oak"
+    rewards:
+      - "item:cooked_beef:3"
+      - "item:diamond:2"
+      - "xp:100"
+      - "msg:§aTutorial Finalizado! Divirta-se."
