@@ -34,19 +34,29 @@ class EventListener implements Listener {
     public function onBreak(BlockBreakEvent $event): void {
         if ($event->isCancelled()) return;
         $player = $event->getPlayer();
-        $blockName = $event->getBlock()->getName(); // Ex: Oak Log
         
-        // Passa para o manager verificar
+        // CORREÇÃO: Usamos o ID interno do bloco para ser mais preciso
+        $block = $event->getBlock();
+        $blockName = $block->getName(); 
+        $blockTypeId = $block->getTypeId(); // Método mais seguro em APIs recentes
+
+        // Log de debug opcional (pode remover depois): 
+        // $player->sendTip("Bloco quebrado: " . $blockName);
+
         $this->plugin->getQuestManager()->checkProgress($player, "break", $blockName, 1);
     }
 
     public function onPlace(BlockPlaceEvent $event): void {
         if ($event->isCancelled()) return;
         $player = $event->getPlayer();
-        $blockName = $event->getBlock()->getName();
 
-        $this->plugin->getQuestManager()->checkProgress($player, "place", $blockName, 1);
+        // CORREÇÃO: No PM5, usamos a transação para pegar os blocos colocados
+        foreach($event->getTransaction()->getBlocks() as [$x, $y, $z, $block]){
+            $blockName = $block->getName();
+            $this->plugin->getQuestManager()->checkProgress($player, "place", $blockName, 1);
+        }
     }
+
 
     public function onCraft(CraftItemEvent $event): void {
         if ($event->isCancelled()) return;
@@ -102,3 +112,4 @@ class EventListener implements Listener {
         }
     }
 }
+
