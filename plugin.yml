@@ -1,5 +1,5 @@
 name: StarterQuest
-version: 1.0.0
+version: 1.0.1
 main: StarterQuest\Main
 api: 5.0.0
 author: gabriqlna
@@ -14,3 +14,4 @@ commands:
   starter:
     description: "Abre o menu de missões iniciais"
     permission: starterquest.use
+
