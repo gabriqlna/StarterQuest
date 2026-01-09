@@ -53,12 +53,7 @@ class QuestManager {
 
     // Verifica progresso e avança se necessário
     public function checkProgress(Player $player, string $type, string $targetItemName, int $amount = 1): void {
-<<<<<<< HEAD
     if ($this->isCompleted($player)) return;
-=======
-        
->>>>>>> b82cc7a (Atualiza lógica e adiciona addon StarterQuest)
-
     $quest = $this->getCurrentQuest($player);
     if ($quest === null) return;
 
@@ -186,5 +181,6 @@ class QuestManager {
         return $q ? "§e" . $q['name'] : "§7Carregando...";
     }
 }
+
 
 
