@@ -53,7 +53,11 @@ class QuestManager {
 
     // Verifica progresso e avança se necessário
     public function checkProgress(Player $player, string $type, string $targetItemName, int $amount = 1): void {
+<<<<<<< HEAD
     if ($this->isCompleted($player)) return;
+=======
+        
+>>>>>>> b82cc7a (Atualiza lógica e adiciona addon StarterQuest)
 
     $quest = $this->getCurrentQuest($player);
     if ($quest === null) return;
@@ -68,6 +72,7 @@ class QuestManager {
     // Verifica se o bloco interagido contém a palavra-chave configurada
     if (!str_contains($cleanBlock, $cleanTarget)) return;
 
+<<<<<<< HEAD
     $newProgress = $this->getSessionProgress($player) + $amount;
     $this->setSessionProgress($player, $newProgress);
 
@@ -77,6 +82,15 @@ class QuestManager {
     } else {
         // Exibe o progresso de forma limpa (ex: 2/5)
         $player->sendTip("§eProgresso: §f" . $newProgress . " / " . $quest['amount']);
+=======
+        if ($currentProgress >= $quest['amount']) {
+            $this->plugin->getEventListener()->updateScoreboard($player)
+            $this->completeQuest($player, $quest);
+        } else {
+            // Envia popup de progresso
+            $player->sendTip("§eProgresso: §f{$currentProgress}/{$quest['amount']}");
+        }
+>>>>>>> b82cc7a (Atualiza lógica e adiciona addon StarterQuest)
     }
 }
 
@@ -93,7 +107,6 @@ class QuestManager {
 
     private function completeQuest(Player $player, array $quest): void {
         $this->setSessionProgress($player, 0); // Reseta contador parcial
-        
         // Dá recompensas
         foreach ($quest['rewards'] as $rewardString) {
             $parts = explode(":", $rewardString);
@@ -119,7 +132,7 @@ class QuestManager {
 
         // Avança ID
         $this->setPlayerQuestId($player, $this->getPlayerQuestId($player) + 1);
-
+        $this->plugin->getEventListener()->updateScoreboard($player)
         // Verifica se acabou tudo
         if ($this->isCompleted($player)) {
             $player->sendMessage($this->plugin->getConfig()->getNested("messages.all-finished"));

@@ -2,6 +2,7 @@
 
 namespace StarterQuest;
 
+use Ifera\ScoreHud\event\PlayerTagUpdateEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
@@ -19,6 +20,19 @@ class EventListener implements Listener {
     public function __construct(Main $plugin) {
         $this->plugin = $plugin;
     }
+
+        public function updateScoreboard(Player $player): void {
+        // Verifica se o plugin ScoreHud está ativado no servidor
+        if($this->plugin->getServer()->getPluginManager()->getPlugin("ScoreHud") !== null) {
+            // Pega o texto atual da missão (ex: "Lenhador 1/3")
+            $tag = $this->plugin->getQuestManager()->getScoreTag($player);
+            
+            // Cria e chama o evento de atualização para o ScoreHud
+            $ev = new PlayerTagUpdateEvent($player, "{starterquest_progress}", $tag);
+            $ev->call();
+        }
+    }
+
 
     public function onJoin(PlayerJoinEvent $event): void {
         $player = $event->getPlayer();
