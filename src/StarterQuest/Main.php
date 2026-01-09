@@ -51,12 +51,3 @@ class Main extends PluginBase {
         }
         return false;
     }
-
-    public static function getInstance(): self {
-        return self::$instance;
-    }
-
-    public function getQuestManager(): QuestManager {
-        return $this->questManager;
-    }
-}
