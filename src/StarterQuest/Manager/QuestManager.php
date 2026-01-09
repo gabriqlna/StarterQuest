@@ -66,8 +66,6 @@ class QuestManager {
 
     // Verifica se o bloco interagido contém a palavra-chave configurada
     if (!str_contains($cleanBlock, $cleanTarget)) return;
-
-<<<<<<< HEAD
     $newProgress = $this->getSessionProgress($player) + $amount;
     $this->setSessionProgress($player, $newProgress);
 
@@ -77,7 +75,6 @@ class QuestManager {
     } else {
         // Exibe o progresso de forma limpa (ex: 2/5)
         $player->sendTip("§eProgresso: §f" . $newProgress . " / " . $quest['amount']);
-=======
         if ($currentProgress >= $quest['amount']) {
             $this->plugin->getEventListener()->updateScoreboard($player)
             $this->completeQuest($player, $quest);
@@ -85,7 +82,7 @@ class QuestManager {
             // Envia popup de progresso
             $player->sendTip("§eProgresso: §f{$currentProgress}/{$quest['amount']}");
         }
->>>>>>> b82cc7a (Atualiza lógica e adiciona addon StarterQuest)
+ 
     }
 }
 
@@ -181,6 +178,7 @@ class QuestManager {
         return $q ? "§e" . $q['name'] : "§7Carregando...";
     }
 }
+
 
 
 
