@@ -76,7 +76,7 @@ class QuestManager {
         // Exibe o progresso de forma limpa (ex: 2/5)
         $player->sendTip("§eProgresso: §f" . $newProgress . " / " . $quest['amount']);
         if ($currentProgress >= $quest['amount']) {
-            $this->plugin->getEventListener()->updateScoreboard($player)
+            $this->plugin->getEventListener()->updateScoreboard($player);
             $this->completeQuest($player, $quest);
         } else {
             // Envia popup de progresso
@@ -178,6 +178,7 @@ class QuestManager {
         return $q ? "§e" . $q['name'] : "§7Carregando...";
     }
 }
+
 
 
 
