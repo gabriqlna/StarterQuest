@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace StarterQuest\Manager;
 
 use StarterQuest\Main;
-// use StarterQuest\Utils\SimpleFormTrait; // Comentei para evitar erro se você não tiver o arquivo Utils
+use StarterQuest\Utils\SimpleFormTrait; // Comentei para evitar erro se você não tiver o arquivo Utils
 use pocketmine\player\Player;
 use pocketmine\utils\Config;
 use pocketmine\item\StringToItemParser;
@@ -181,3 +181,4 @@ class QuestManager {
         return $q['name'] . " " . $this->getSessionProgress($player) . "/" . $q['amount'];
     }
 }
+
